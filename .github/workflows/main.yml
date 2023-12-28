@@ -1,0 +1,19 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+        - main
+      
+jobs:
+  deployment:
+    uses: ./.github/workflows/deployment.yml
+    secrets: inherit
+    with:
+      # main_tag: $GITHUB_REF_NAME
+      main_tag: dev
+
+  reload_compose:
+    needs: deployment
+    secrets: inherit
+    uses: ./.github/workflows/reload_compose.yml

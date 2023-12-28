@@ -1,0 +1,14 @@
+version: "3"
+services:
+    carmind-front:
+      image: fonzeca/fast-email:dev
+      volumes:
+        - ${PWD}/.env:/app/.env
+      networks:
+        - carmind
+
+networks:
+  carmind:
+    driver: bridge
+    name: carmind
+    external: true
