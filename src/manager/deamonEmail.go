@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"time"
 
@@ -64,6 +65,8 @@ func DeamonEmail() {
 		// Agregar el bearer token al encabezado Authorization
 		req.Header.Set("Authorization", "Bearer "+bearerToken)
 
+		fmt.Println("Bearer " + bearerToken)
+
 		// Realizar la llamada a la API
 		client := &http.Client{}
 		resp, err := client.Do(req)
@@ -75,11 +78,18 @@ func DeamonEmail() {
 		// Comprobar el código de estado de la respuesta
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println(fmt.Errorf("API call failed with status code: %d", resp.StatusCode))
-			fmt.Println(resp.Body)
-			continue
-		}
+			// Leer el cuerpo de la respuesta
+			body, err := io.ReadAll(resp.Body)
+			if err != nil {
+				fmt.Println("No se pudo leer el cuerpo de la respuesta")
+				continue
+			}
 
-		resp.Body.Close()
+			// Imprimir el cuerpo de la respuesta
+			fmt.Println(string(body))
+
+			resp.Body.Close()
+		}
 	}
 }
 
