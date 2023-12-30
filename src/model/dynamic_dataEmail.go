@@ -6,17 +6,16 @@ type RecuperarContraseña struct {
 }
 
 type EmailTemplate struct {
-	TemplateId string
-	EmailTo    string
-	Data       map[string]interface{}
+	Html    string
+	EmailTo string
+	Title   string
 }
 
 type EnvialoSimpleApiBody struct {
-	From          string                 `json:"from"`
-	To            string                 `json:"to"`
-	TemplateId    string                 `json:"templateID"`
-	Subject       string                 `json:"subject"`
-	Substitutions map[string]interface{} `json:"substitutions"`
+	From    string `json:"from"`
+	To      string `json:"to"`
+	Html    string `json:"html"`
+	Subject string `json:"subject"`
 }
 
 type ResumenSemanalVacio struct {

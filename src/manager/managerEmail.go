@@ -1,6 +1,12 @@
 package manager
 
-import "github.com/Carmind-Mindia/fastemail/src/model"
+import (
+	"os"
+
+	"strings"
+
+	"github.com/Carmind-Mindia/fastemail/src/model"
+)
 
 type EmailManager struct {
 }
@@ -9,7 +15,7 @@ func NewEmailManager() EmailManager {
 	return EmailManager{}
 }
 
-func (ma *EmailManager) SendRecoverPassword(data model.RecuperarContraseña) {
+func (ma *EmailManager) SendRecoverPassword(data model.RecuperarContraseña) error {
 	embudo := EmailChannel
 
 	dataAnon := map[string]interface{}{
@@ -17,14 +23,29 @@ func (ma *EmailManager) SendRecoverPassword(data model.RecuperarContraseña) {
 	}
 
 	email := model.EmailTemplate{
-		TemplateId: "6585f6008759392fbc0d73be",
-		EmailTo:    data.Email,
-		Data:       dataAnon,
+		EmailTo: data.Email,
 	}
+
+	content, err := os.ReadFile("/app/templates/recoverPassword.html")
+	if err != nil {
+		return err
+	}
+
+	htmlEmail := string(content)
+
+	// Replace words between {{ }} in htmlEmail
+	for key, value := range dataAnon {
+		placeholder := "{{" + key + "}}"
+		htmlEmail = strings.ReplaceAll(htmlEmail, placeholder, value.(string))
+	}
+
+	email.Html = htmlEmail
+	email.Title = "Recupero de contraseña"
 
 	//Enviamos el email al deamon para que se despache
 	embudo <- email
 
+	return nil
 }
 
 // func (ma *EmailManager) SendDocsCloseToExpire(data model.ResumenSemanalLleno) {

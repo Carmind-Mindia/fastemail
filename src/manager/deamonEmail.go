@@ -39,11 +39,10 @@ func DeamonEmail() {
 		}
 
 		var body model.EnvialoSimpleApiBody
-		body.TemplateId = data.TemplateId
+		body.Html = data.Html
 		body.To = data.EmailTo
 		body.From = "ayuda@mindia.com.ar"
-		body.Subject = "Recupero de contraseña"
-		body.Substitutions = data.Data
+		body.Subject = data.Title
 
 		// Convertir los datos de la solicitud a JSON
 		jsonData, err := json.Marshal(body)

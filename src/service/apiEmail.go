@@ -21,7 +21,10 @@ func (api *ApiEmail) SendRecoverPassword(c echo.Context) error {
 	data := model.RecuperarContraseña{}
 	c.Bind(&data)
 
-	api.manager.SendRecoverPassword(data)
+	err := api.manager.SendRecoverPassword(data)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
 
 	return c.NoContent(http.StatusOK)
 }
