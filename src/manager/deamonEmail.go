@@ -71,13 +71,15 @@ func DeamonEmail() {
 			fmt.Println(err)
 			continue
 		}
-		defer resp.Body.Close()
 
 		// Comprobar el código de estado de la respuesta
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println(fmt.Errorf("API call failed with status code: %d", resp.StatusCode))
+			fmt.Println(resp.Body)
 			continue
 		}
+
+		resp.Body.Close()
 	}
 }
 
