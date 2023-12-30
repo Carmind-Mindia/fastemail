@@ -40,7 +40,7 @@ func DeamonEmail() {
 
 		var body model.EnvialoSimpleApiBody
 		body.TemplateId = data.TemplateId
-		body.To = []string{data.EmailTo}
+		body.To = data.EmailTo
 		body.From = "ayuda@mindia.com.ar"
 		body.Subject = "Recupero de contraseña"
 		body.Substitutions = data.Data
@@ -64,8 +64,6 @@ func DeamonEmail() {
 
 		// Agregar el bearer token al encabezado Authorization
 		req.Header.Set("Authorization", "Bearer "+bearerToken)
-
-		fmt.Println("Bearer " + bearerToken)
 
 		// Realizar la llamada a la API
 		client := &http.Client{}

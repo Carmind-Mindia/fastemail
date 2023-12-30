@@ -13,7 +13,7 @@ type EmailTemplate struct {
 
 type EnvialoSimpleApiBody struct {
 	From          string                 `json:"from"`
-	To            []string               `json:"to"`
+	To            string                 `json:"to"`
 	TemplateId    string                 `json:"templateID"`
 	Subject       string                 `json:"subject"`
 	Substitutions map[string]interface{} `json:"substitutions"`
