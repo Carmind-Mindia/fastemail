@@ -22,7 +22,7 @@ var listMapEmail = make(map[string]time.Time)
 
 func DeamonEmail() {
 	// Obtener el bearer token del archivo .env
-	bearerToken := os.Getenv("BEARER_TOKEN")
+	bearerToken := os.Getenv("ENVIALOSIMPLE_TOKEN")
 
 	// Creamos el channel
 	EmailChannel = make(chan model.EmailTemplate)
