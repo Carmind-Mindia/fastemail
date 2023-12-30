@@ -2,8 +2,8 @@ version: "3"
 services:
     fastemail:
       image: fonzeca/fastemail:dev
-      volumes:
-        - ${PWD}/.env:/app/.env
+      env_file:
+      - .env
       networks:
         - carmind
 
