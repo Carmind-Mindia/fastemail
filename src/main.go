@@ -1,19 +1,12 @@
 package main
 
 import (
-	"log"
-
 	"github.com/Carmind-Mindia/fastemail/src/manager"
 	"github.com/Carmind-Mindia/fastemail/src/service"
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 	e := echo.New()
 
 	//Corremos el deamon con el channel
